@@ -16,12 +16,11 @@ $tipe = "user";
 <div class="login-form">
 
 <?php
-$sql = mysqli_query($konek, "INSERT INTO user VALUES ('$email','$pass','$firstname','$lastname','$alamat','$kota','$telp','$kodepos','$tipe')");
+$sql = mysqli_query($konek, "INSERT INTO user VALUES ('$email','$pass','$firstname','$lastname','$alamat','$kota','$telp','$kodepos','$tipe','')");
     if ($sql) {
         echo '<br>You have been registered!';
 ?>
-
-<p>Login <a href="login.php"><u>Here<u/></a>.</p>
+    <p>Login <a href="login.php"><u>Here<u/></a>.</p>
 
 <?php
 } else {
