@@ -13,12 +13,14 @@ a{
     margin: 40px;
     margin-left: 80px;
     color: black;
-    display: inline-block;
+    float: left;
+    
 }
 
 .logo:hover{
     text-decoration: none;
 }
+
 
 .navbar{
     float: right;
@@ -53,10 +55,6 @@ a{
     margin-bottom: 16px;
 }
 
-.product-container{
-    display: table-row;
-}
-
 .input{
     width: 300px;
     height: 40px;
@@ -85,6 +83,48 @@ a{
     font-weight: 300;
 }
 
+.product-container{
+    float:left;
+    margin: 20px 0px 20px 50px;
+}
+
+.product-img{
+    width: 280px;
+    height: 245px;
+}
+
+.img-wrap{
+    position: relative;
+    width: 280px;
+    height: 245px;    
+}
+  
+.img-description{
+    position: absolute;
+    top: 50;
+    bottom: 50;
+    left: 50;
+    right: 50;
+    background: rgba(187, 187, 187, 0.72);
+    color: #fff;
+    visibility: hidden;
+    opacity: 0;
+  
+    transition: opacity .2s, visibility .2s;
+}
+  
+.img-wrap:hover .img-description{
+    visibility: visible;
+    opacity: 1;
+}
+
+.qty{
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    margin: 6px 2px 6px 40px;
+}
+
 .btn{
     width: 100px;
     background:black;
@@ -97,6 +137,12 @@ a{
     margin-bottom: 16px;
     border: none;
     font-weight: 200;
+}
+
+.btn:hover{
+    border: 1px solid black;
+    background: white;
+    color: black;
 }
 
 .footer{
