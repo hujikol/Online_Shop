@@ -14,13 +14,12 @@ a{
     margin-left: 80px;
     color: black;
     float: left;
-    
+
 }
 
 .logo:hover{
     text-decoration: none;
 }
-
 
 .navbar{
     float: right;
