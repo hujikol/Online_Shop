@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 12 Nov 2019 pada 09.01
+-- Waktu pembuatan: 13 Nov 2019 pada 12.11
 -- Versi server: 10.4.6-MariaDB
 -- Versi PHP: 7.3.8
 
@@ -30,9 +30,23 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `order` (
   `order_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `product_id` varchar(5) NOT NULL,
-  `qty` int(11) NOT NULL,
+  `status` varchar(24) NOT NULL,
   `total_harga` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `order_detail`
+--
+
+CREATE TABLE `order_detail` (
+  `order_id` int(11) NOT NULL,
+  `product_id` varchar(5) NOT NULL,
+  `jumlah` int(11) NOT NULL,
+  `harga` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -42,11 +56,32 @@ CREATE TABLE `order` (
 --
 
 CREATE TABLE `product` (
-  `product_id` varchar(5) NOT NULL,
+  `product_id` int(11) NOT NULL,
   `product_name` varchar(20) NOT NULL,
-  `ukuran` varchar(3) NOT NULL,
-  `harga` int(11) NOT NULL
+  `harga` int(11) NOT NULL,
+  `gambar` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `product`
+--
+
+INSERT INTO `product` (`product_id`, `product_name`, `harga`, `gambar`) VALUES
+(1, 'Bottle', 115000, 'bottle.jpg'),
+(2, 'Confusion', 125000, 'confusion.jpg'),
+(3, 'Dragnet', 100000, 'dragnet.jpg'),
+(4, 'Increse', 105000, 'increase.jpg'),
+(5, 'Mammon', 115000, 'mammon.jpg'),
+(6, 'Motorbike Skull', 115000, 'motorskull.jpg'),
+(7, 'Motorbike Skull Yuhu', 115000, 'motoryuhu.jpg'),
+(8, 'Nope', 110000, 'nope.jpg'),
+(9, 'Reject', 100000, 'reject.jpg'),
+(10, 'Rock', 135000, 'rock.jpg'),
+(11, 'Shoemaker', 125000, 'shoemaker.jpg'),
+(12, 'Skateboard', 120000, 'sktboard.jpg'),
+(13, 'Stay', 115000, 'stay.jpg'),
+(14, 'Surfing', 125000, 'surfing.jpg'),
+(15, 'Triangle', 130000, 'triangle.jpg');
 
 -- --------------------------------------------------------
 
@@ -64,8 +99,16 @@ CREATE TABLE `user` (
   `no_telp` int(13) NOT NULL,
   `kode_pos` int(5) NOT NULL,
   `tipe` varchar(12) NOT NULL,
-  `order_id` int(11) NOT NULL
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `user`
+--
+
+INSERT INTO `user` (`email`, `password`, `firstname`, `lastname`, `alamat`, `kota`, `no_telp`, `kode_pos`, `tipe`, `user_id`) VALUES
+('nikolasnanda@gmail.com', '202cb962ac59075b964b07152d234b70', 'nicholas', 'nanda', 'abcd', 'desc', 12049, 12345, 'user', 1),
+('tet@gmail.com', '289dff07669d7a23de0ef88d2f7129e7', 'a', 'b', 'c', 'd', 8475, 12345, 'user', 2);
 
 --
 -- Indexes for dumped tables
@@ -82,6 +125,28 @@ ALTER TABLE `order`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`product_id`);
+
+--
+-- Indeks untuk tabel `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`user_id`);
+
+--
+-- AUTO_INCREMENT untuk tabel yang dibuang
+--
+
+--
+-- AUTO_INCREMENT untuk tabel `product`
+--
+ALTER TABLE `product`
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT untuk tabel `user`
+--
+ALTER TABLE `user`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
