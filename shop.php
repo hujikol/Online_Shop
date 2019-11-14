@@ -3,7 +3,7 @@ include 'koneksi.php';
 
 $sql = mysqli_query($konek, 'select * from product') or die(mysqli_error($konek));
 if (isset($_SESSION['login'])) {
-    $btn_command = 'cart.php';
+    $btn_command = 'cart-con.php';
 } else {
     $btn_command = 'login.php';
 }
@@ -28,6 +28,7 @@ while ($data = mysqli_fetch_array($sql)) { ?>
                         <!-- <?php echo $data['product_name'] . "<br>"; ?> -->
                         <form method="POST" action="<?= $btn_command ?>">
                             <input type="hidden" name="productid" value="<?= $data['product_id'] ?>">
+                            <input type="hidden" name="user_id" value="<?= $_SESSION['uid'] ?>">
                             <input class="qty" type="text" name="quantity" value="1">
                     </td>
                     <td>                       

@@ -18,6 +18,7 @@ if (mysqli_num_rows($data) >= 1) {
 
 
     $_SESSION['nama'] = $row['firstname'];
+    $_SESSION['uid'] = $row['user_id'];
     $_SESSION['login'] = true;
     header('Location:shop.php');
 } else {
