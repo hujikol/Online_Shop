@@ -12,29 +12,31 @@ $productid = $_POST['productid'];
 
 $sql = mysqli_query($konek,"SELECT * FROM product WHERE product_id='$productid'");
 $data = mysqli_fetch_assoc($sql);
+ 
+// if(isset($_POST['test'])) {
+//     $id =$_POST['id'];
 
-// $newitem = array(
-//     $id = $productid
+//     $newitem = array(
+//     'idproduk' => $id, 
 //     'nm_produk' => 'hoodie', 
 //     'img_produk' => 'images/produk/hodie.jpg', 
 //     'harga_produk' => '20', 
 //     'qty' => '2' 
 //     );
-
-//     //jika tidak kosong
+//     //if not empty
 //     if(!empty($_SESSION['cart']))
 //     {    
-//         //kalau produk sama
+//         //and if session cart same 
 //         if(isset($_SESSION['cart'][$id]) == $id) {
 //             $_SESSION['cart'][$id]['qty']++;
 //         } else { 
-//             //kalau beda buat baru
+//             //if not same put new storing
 //             $_SESSION['cart'][$id] = $newitem;
 //         }
 //     } else  {
 //         $_SESSION['cart'] = array();
 //         $_SESSION['cart'][$id] = $newitem;
 //     }
-
+// } 
     
 ?>
