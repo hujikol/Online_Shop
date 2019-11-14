@@ -2,7 +2,7 @@
     error_reporting (0);
     $msg = $_GET['message'];
     if($msg){
-        echo "<script type='text/javascript'>alert('$message');</script>";
+        echo "<script type='text/javascript'>alert('$msg');</script>";
     }
 ?>
 <div class="login-form">
