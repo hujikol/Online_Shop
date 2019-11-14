@@ -18,7 +18,7 @@ a{
 }
 
 .logo:hover{
-    text-decoration: none;
+    text-decoration: none;    
 }
 
 .navbar{
@@ -121,7 +121,7 @@ a{
     text-align: center;
     width: 40px;
     height: 40px;
-    margin: 6px 2px 6px 40px;
+    margin: 6px 2px 6px 2px;
 }
 
 .btn{
@@ -142,6 +142,7 @@ a{
     border: 1px solid black;
     background: white;
     color: black;
+    transition: background .3s;
 }
 
 .footer{
