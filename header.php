@@ -29,5 +29,6 @@ include 'koneksi.php';
                 <li><a href="shop.php" title="Shop">Shop</a></li>
                 <li><a href="login.php" title="Login">Login</a></li>
             </ul>
-    </div>
+    
 <?php endif; ?>
+</div>
