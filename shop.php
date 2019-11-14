@@ -25,14 +25,26 @@ while ($data = mysqli_fetch_array($sql)) { ?>
             <div class="product-header">
                 <tr>
                     <td>
+                        Size
+                        <select name="size">
+                            <option value="S">S</option>
+                            <option value="M">M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                            <option value="XXL">XXL</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         <!-- <?php echo $data['product_name'] . "<br>"; ?> -->
                         <form method="POST" action="<?= $btn_command ?>">
                             <input type="hidden" name="productid" value="<?= $data['product_id'] ?>">
-                            <input type="hidden" name="user_id" value="<?= $_SESSION['uid'] ?>">
+                            Quantity
                             <input class="qty" type="text" name="quantity" value="1">
                     </td>
-                    <td>                       
-                            <input class="btn" style="width:150px;" type="submit" value="Add to Cart"></<input>
+                    <td>
+                        <input class="btn" style="width:150px;" type="submit" value="Add to Cart"></<input>
                         </form>
                     </td>
                 </tr>
@@ -40,7 +52,6 @@ while ($data = mysqli_fetch_array($sql)) { ?>
                     <td>
                         <?php echo "Rp " . $data['harga'] . "<br>"; ?>
                     </td>
-
                 </tr> -->
             </div>
         </table>
@@ -49,3 +60,16 @@ while ($data = mysqli_fetch_array($sql)) { ?>
 
 //include 'footer.php'; 
 ?>
+
+<!-- display cart pada halaman shop -->
+<!-- <?php //if(isset($_SESSION['shopping_card'])): 
+        ?> //check if session is set ?> -->
+<!-- <div id="cart_list"> -->
+<?php //foreach($_SESSION['shopping_card'] as $product): 
+?>
+<!-- This should be display the cart list -->
+<?php //end foreach;
+?>
+</div>
+<!--  <?php //endif; 
+        ?> -->
