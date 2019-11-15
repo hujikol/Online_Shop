@@ -25,6 +25,7 @@ while ($data = mysqli_fetch_array($sql)) { ?>
             <div class="product-header">
                 <tr>
                     <td>
+                    <form method="POST" action="<?= $btn_command ?>">
                         Size
                         <select name="size">
                             <option value="S">S</option>
@@ -38,7 +39,6 @@ while ($data = mysqli_fetch_array($sql)) { ?>
                 <tr>
                     <td>
                         <!-- <?php echo $data['product_name'] . "<br>"; ?> -->
-                        <form method="POST" action="<?= $btn_command ?>">
                             <input type="hidden" name="productid" value="<?= $data['product_id'] ?>">
                             Quantity
                             <input class="qty" type="text" name="quantity" value="1">

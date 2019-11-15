@@ -24,7 +24,7 @@ $sql = mysqli_query($konek, "INSERT INTO user VALUES ('$email','$pass','$firstna
 
 <?php
 } else {
-    echo 'There is some error!';
+    echo 'There is an error!';
 }
 //header("Location: login.php?message=$message");
 
