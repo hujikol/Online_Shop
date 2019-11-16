@@ -1,8 +1,7 @@
 <?php include 'header.php';
     error_reporting (0);
-    $msg = $_GET['message'];
-    if($msg){
-        echo "<script type='text/javascript'>alert('$msg');</script>";
+    if(isset($_SESSION['login'])){
+        header('Location:shop.php');
     }
 ?>
 <div class="login-form">

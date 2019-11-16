@@ -1,6 +1,10 @@
 <?php
 session_start();
 include 'koneksi.php';
+if(isset($_GET['message'])){
+    $msg = $_GET['message'];
+    echo "<script type='text/javascript'>alert('$msg');</script>";
+}
 ?>
 
 <html>
