@@ -14,15 +14,21 @@ while ($data = mysqli_fetch_array($sql)) { ?>
         <table>
             <tr>
                 <td colspan="2">
-                    <div class="img-wrap">
+                    <div>
                         <img class="product-img" title="<?= $data['product_name'] ?>" src="images/<?= $data['gambar'] ?>">
-                        <p class="img-description">Rp <?= $data['harga'] ?></p>
                     </div>
                 </td>
             </tr>
             <div class="product-header">
                 <tr>
                     <td>
+                        <div class="subcontent">
+                            <?php echo $data['product_name'] ?><br>
+                            Rp <?php echo $data['harga'] ?>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="text-align:center;">
                         <form method="POST" action="<?= $btn_command ?>">
                             Size
                             <select name="size">
@@ -32,7 +38,8 @@ while ($data = mysqli_fetch_array($sql)) { ?>
                                 <option value="XL">XL</option>
                                 <option value="XXL">XXL</option>
                             </select>
-                    </td>
+                        </div>
+                    </td>                   
                 </tr>
                 <tr>
                     <td style="width:40px;">

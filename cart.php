@@ -1,52 +1,71 @@
 <?php
 include 'header.php';
 $userid = $_SESSION['uid'];
-$sql = mysqli_query($konek, "SELECT * FROM cart_temp WHERE user_id='$userid'");
-while($data=mysqli_fetch_array($sql)){
-    echo $data['product_id'];
-}
+$sql = mysqli_query($konek, "SELECT ct.size, ct.jumlah, p.* FROM cart_temp ct, product p WHERE ct.user_id='$userid' AND p.product_id=ct.product_id");
+$subtotal = 0;
 ?>
-<!-- 
+<div id="header" style="margin:70px 0 0 180px;">
+    <div style="float:left;">Shopping Cart</div>
+    <div style="display:inline-block;margin: 2px 0 0 20px;">
+    <!-- Mengosongkan cart -->
+        <form action="cart-con.php?con=removeall">
+            <input class="btn" style="width:100px;height:25px;padding:0;text-align:center;" type="submit" value="Empty Cart">
+        </form>
+    </div>
+</div>
+<div class="cart-preview">
+    <table>
+        <tr>
+            <td style="padding-left:24px;"></td>
+            <td style="padding-left:24px;">Product Name</td>
+            <td style="padding-left:24px;">Size</td>
+            <td style="padding-left:24px;">Quantity</td>
+            <td style="padding-left:24px;">Price</td>
+            <td style="padding-left:24px;">Action</td>
+        </tr>
+        <?php
+        while ($data = mysqli_fetch_array($sql)) {
+            $subtotal += $data['harga'];
+            ?>
+            <tr>
+                <td>
+                    <div>
+                        <img style="width:100px;height:80px;" src="images/<?= $data['gambar'] ?>">
+                    </div>
+                </td>
+                <td style="padding-left:24px;"><?php echo $data['product_name']; ?></td>
+                <td style="padding-left:24px;text-align:center;"><?php echo $data['size']; ?></td>
+                <td style="padding-left:24px;text-align:center;"><?php echo $data['jumlah']; ?></td>
+                <td style="padding-left:24px;"><?php echo "Rp " . $data['harga']; ?></td>
+                <td style="padding-left:24px;text-align:center;">
+                <!-- remove 1 product button -->
+                    <form action="cart-con.php?con=remove" method="POST">
+                        <input type="hidden" name="productid" value="<?= $data['product_id'] ?>">
+                        <input class="btn" style="width:40px;" type="submit" value="x">
+                    </form>
+                </td>
+            </tr>
+        <?php }
+        ?>
+    </table>
+    <div style="float:left;padding:0px 10px 0 0;">
+        -------------------------------------------------------------------------------------------
+        <div style="margin:6px 0 6px 125px">
+            Subtotal <div style="margin:-18px 0 0px 280px"> Rp <?php echo $subtotal; ?>
+            </div>
+            <!-- Check out button -->
+            <form action="cart-con.php?con=checkout" method="POST">
+            <input type="hidden" name="size" value="<?= $data['size'] ?>">
+                <input type="hidden" name="quantity" value="<?= $data['jumlah'] ?>">
+                <input type="hidden" name="subtotal" value="<?= $subtotal ?>">
+                <input class="btn" style="width:170px;height:50px;padding:0;text-align:center;margin:20px 0 0 327px" type="submit" value="CheckOut ->">
+            </form>
+
+        </div>
+        <!-- 
     keluarin gambar dari produk, 
     nama produk, size, 
     edit qty & delete 1 produk/ kosongkan cart,
     harga dan total harga,
     tombol chekout buat mindahin dari temp_cart ke order -> order_detail
 -->
-<section>
-    <div id="header" style="margin-left:80px">
-        Shopping Cart
-    </div>
-    <table>
-        <tr>
-            <td></td>
-            <td>Product Name</td>
-            <td>Size</td>
-            <td>Quantity</td>
-            <td>Price</td>
-        </tr>
-        <?php
-        while ($data = mysqli_fetch_assoc($sql)) {
-            $pid = $data['product_id'];var_dump($pid);
-            $produk = mysqli_query($konek, "SELECT * FROM product WHERE product_id='$pid'");
-            $p = $produk['harga'];
-            var_dump($p);
-            ?>
-            <tr>
-                <td>
-                    <div style="width:60px;height:70px;">
-                        <img src="images/<?= $produk['gambar'] ?>">
-                    </div>
-                </td>
-                <td><?php echo $produk['product_name']; ?></td>
-                <td><?php echo $data['size']; ?></td>
-                <td><form action="">
-                    <input type="text" placeholder="<?= $data['jumlah']?>">
-                </form>
-                    
-            </td>
-            </tr>
-        <?php }
-        ?>
-    </table>
-</section>
