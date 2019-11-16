@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 15 Nov 2019 pada 07.57
+-- Waktu pembuatan: 16 Nov 2019 pada 06.27
 -- Versi server: 10.4.6-MariaDB
 -- Versi PHP: 7.3.8
 
@@ -21,6 +21,29 @@ SET time_zone = "+00:00";
 --
 -- Database: `illegaldb`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `cart_temp`
+--
+
+CREATE TABLE `cart_temp` (
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `size` varchar(4) NOT NULL,
+  `harga` int(11) NOT NULL,
+  `jumlah` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `cart_temp`
+--
+
+INSERT INTO `cart_temp` (`user_id`, `product_id`, `size`, `harga`, `jumlah`) VALUES
+(3, 2, 'S', 125000, 1),
+(3, 3, 'L', 100000, 1),
+(2, 2, 'S', 125000, 6);
 
 -- --------------------------------------------------------
 
@@ -44,6 +67,7 @@ CREATE TABLE `order` (
 CREATE TABLE `order_detail` (
   `order_id` int(11) NOT NULL,
   `product_id` varchar(5) NOT NULL,
+  `size` varchar(3) NOT NULL,
   `jumlah` int(11) NOT NULL,
   `harga` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
