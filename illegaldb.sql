@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 16 Nov 2019 pada 06.27
+-- Waktu pembuatan: 17 Nov 2019 pada 15.01
 -- Versi server: 10.4.6-MariaDB
 -- Versi PHP: 7.3.8
 
@@ -41,22 +41,8 @@ CREATE TABLE `cart_temp` (
 --
 
 INSERT INTO `cart_temp` (`user_id`, `product_id`, `size`, `harga`, `jumlah`) VALUES
-(3, 2, 'S', 125000, 1),
-(3, 3, 'L', 100000, 1),
-(2, 2, 'S', 125000, 6);
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `order`
---
-
-CREATE TABLE `order` (
-  `order_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `status` varchar(32) NOT NULL,
-  `total_harga` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+(2, 2, 'M', 125000, 2),
+(2, 7, 'L', 115000, 1);
 
 -- --------------------------------------------------------
 
@@ -67,10 +53,38 @@ CREATE TABLE `order` (
 CREATE TABLE `order_detail` (
   `order_id` int(11) NOT NULL,
   `product_id` varchar(5) NOT NULL,
-  `size` varchar(3) NOT NULL,
+  `ukuran` varchar(3) NOT NULL,
   `jumlah` int(11) NOT NULL,
   `harga` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `order_detail`
+--
+
+INSERT INTO `order_detail` (`order_id`, `product_id`, `ukuran`, `jumlah`, `harga`) VALUES
+(4, '3', 'S', 1, 100000),
+(4, '8', 'S', 2, 110000);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `order_list`
+--
+
+CREATE TABLE `order_list` (
+  `user_id` int(11) NOT NULL,
+  `status` varchar(24) NOT NULL,
+  `total_harga` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `order_list`
+--
+
+INSERT INTO `order_list` (`user_id`, `status`, `total_harga`, `order_id`) VALUES
+(3, 'Not Verified', 320000, 4);
 
 -- --------------------------------------------------------
 
@@ -139,9 +153,9 @@ INSERT INTO `user` (`email`, `password`, `firstname`, `lastname`, `alamat`, `kot
 --
 
 --
--- Indeks untuk tabel `order`
+-- Indeks untuk tabel `order_list`
 --
-ALTER TABLE `order`
+ALTER TABLE `order_list`
   ADD PRIMARY KEY (`order_id`);
 
 --
@@ -159,6 +173,12 @@ ALTER TABLE `user`
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
+
+--
+-- AUTO_INCREMENT untuk tabel `order_list`
+--
+ALTER TABLE `order_list`
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `product`
