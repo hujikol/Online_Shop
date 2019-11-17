@@ -28,7 +28,7 @@ $data = mysqli_fetch_assoc($sql);}
                 <li><a href="shop.php" title="Shop">Shop</a></li>
                 <li>
                     <a href="cart.php" title="Cart">Cart</a>
-                    <?php if(!empty($sql)){?>
+                    <?php if($data['qty']>0){?>
                     <p class="cart-nav" style="">
                         <?php echo $data['qty'] ?>
                     </p>
