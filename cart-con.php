@@ -6,11 +6,13 @@ include 'koneksi.php';
 // database sementara juga digunain nanti buat nampilin cart
 // jika user sudah memutuskan untuk bayar/ chekout baru dimasukkan ke database tabel order dan yang di cart_temp dihapus
 error_reporting(1);
+//deklarasi variable
 $userid = $_SESSION['uid'];
 $qty = $_POST['quantity'];
 $productid = $_POST['productid'];
 $ukuran = $_POST['size'];
 
+//mengecek apakah ada perintah pada link berupa con="..."
 if (isset($_GET['con'])) {
     $aksi = $_GET['con'];
 }
@@ -19,9 +21,10 @@ $sql = mysqli_query($konek, "SELECT * FROM product WHERE product_id='$productid'
 $data_produk = mysqli_fetch_assoc($sql);
 
 //ngambil data cart_temp
-$sql = mysqli_query($konek, "SELECT * FROM cart_temp WHERE user_id='$userid' AND product_id='$productid' AND size='$ukuran'");
-$data_temp = mysqli_fetch_assoc($sql);
+$sql_temp = mysqli_query($konek, "SELECT * FROM cart_temp WHERE user_id='$userid' AND product_id='$productid' AND size='$ukuran'");
+$data_temp = mysqli_fetch_assoc($sql_temp);
 
+//mengeksekusi perintah menggunakan switch case
 switch ($aksi) {
     case 'hapus_semua': //hapus semua isi cart
         $sql = mysqli_query($konek, "DELETE FROM cart_temp WHERE user_id='$userid'");
@@ -35,13 +38,14 @@ switch ($aksi) {
 
     case 'checkout': //checkout cart, kemudian dimasukkan ke order dan order_detail
         $subtotal = $_POST['subtotal'];
-        $sql = mysqli_query($konek, "INSERT INTO order (user_id,status,total_harga,order_id) 
-        VALUES('$userid','Not Confirmed','$subtotal','')");
-
+        //memasukkan data ke order_list        
+        $sql = mysqli_query($konek, "INSERT INTO order_list (user_id,status,total_harga) 
+        SELECT '$userid','Not Verified',SUM(cart_temp.harga*cart_temp.jumlah) FROM cart_temp WHERE cart_temp.user_id='$userid'");
+        //memasukan data ke order detail
         $sql = mysqli_query($konek, "INSERT INTO order_detail (order_id,product_id,ukuran,jumlah,harga) 
-        SELECT o.order_id, ct.product_id, ct.ukuran, ct.jumlah, ct.harga FROM cart_temp ct, order o 
-        WHERE ct.user_id='$userid' AND o.user_id='$userid'");
-
+        SELECT order_list.order_id,cart_temp.product_id,cart_temp.size,cart_temp.jumlah,cart_temp.harga 
+        FROM cart_temp,order_list WHERE cart_temp.user_id='$userid' AND order_list.user_id='$userid'");
+        //menghapus data dari cart_temp
         $sql = mysqli_query($konek, "DELETE FROM cart_temp WHERE user_id='$userid'");
         header('Location:shop.php?message=Thank You for Your Purchase');
         break;

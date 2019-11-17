@@ -1,7 +1,9 @@
 <?php
 include 'header.php';
+if(isset($_SESSION['uid'])){
 $userid = $_SESSION['uid'];
 $sql = mysqli_query($konek, "SELECT ct.size, ct.jumlah, p.* FROM cart_temp ct, product p WHERE ct.user_id='$userid' AND p.product_id=ct.product_id");
+}
 $subtotal = 0;
 ?>
 <div id="header" style="margin:70px 0 0 180px;">
