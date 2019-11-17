@@ -3,7 +3,7 @@ include 'koneksi.php';
 
 $sql = mysqli_query($konek, 'SELECT * FROM product') or die(mysqli_error($konek));
 if (isset($_SESSION['login'])) {
-    $btn_command = 'cart-con.php';
+    $btn_command = 'cart-con.php?con=addtocart';
 } else {
     $btn_command = 'login.php';
 }

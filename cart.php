@@ -8,7 +8,7 @@ $subtotal = 0;
     <div style="float:left;">Shopping Cart</div>
     <div style="display:inline-block;margin: 2px 0 0 20px;">
     <!-- Mengosongkan cart -->
-        <form action="cart-con.php?con=hapus_semua">
+        <form action="cart-con.php?con=hapus_semua" method="POST">
             <input class="btn" style="width:100px;height:25px;padding:0;text-align:center;" type="submit" value="Empty Cart">
         </form>
     </div>
@@ -55,8 +55,6 @@ $subtotal = 0;
             </div>
             <!-- Check out button -->
             <form action="cart-con.php?con=checkout" method="POST">
-                <input type="hidden" name="size" value="<?= $data['size'] ?>">
-                <input type="hidden" name="quantity" value="<?= $data['jumlah'] ?>">
                 <input type="hidden" name="subtotal" value="<?= $subtotal ?>">
                 <input class="btn" style="width:170px;height:50px;padding:0;text-align:center;margin:20px 0 0 327px" type="submit" value="CheckOut ->">
             </form>
