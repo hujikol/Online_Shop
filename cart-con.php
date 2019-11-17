@@ -65,28 +65,3 @@ switch ($aksi) {
         }
         break;
 }
-
-
-// $data = mysqli_fetch_assoc($sql);
-// $itemArray = array(
-//     $productByCode["product_id"] => array(
-//         'product_name' => $productByCode["product_name"],
-//         'product_id' => $productByCode["product_id"],
-//         'quantity' => $qty,
-//         'harga' => $productByCode["harga"]
-//     )
-// );
-
-// if (!empty($_SESSION["cart_item"])) {
-//     if (in_array($productByCode["product_id"], $_SESSION["cart_item"])) {
-//         foreach ($_SESSION["cart_item"] as $k => $v) {
-//             if ($productByCode["product_id"] == $k)
-//                 $_SESSION["cart_item"][$k]["quantity"] = $qty;
-//         }
-//     } else {
-//         $_SESSION["cart_item"] = array_merge($_SESSION["cart_item"], $itemArray);
-//     }
-// } else {
-//     $_SESSION["cart_item"] = $itemArray;
-// }
-//  var_dump($_SESSION["cart_item"]); -> untuk chek produk sudah masuk session atau belum.
