@@ -90,6 +90,17 @@ a{
 .product-container{
     float:left;
     margin: 40px 0px 20px 40px;
+    letter-spacing: .5;
+}
+
+.cart-nav{
+    display: inline;
+    border:.5px solid black;
+    text-align: center;
+    font-size: 18px;
+    padding: 2px 6px 2px 6px;
+    width: 50px;
+    height: 50px;
 }
 
 .product-img{

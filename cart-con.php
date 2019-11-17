@@ -24,24 +24,34 @@ $data_temp = mysqli_fetch_assoc($sql);
 //proses remove & checkout
 if (isset($_GET['con'])) {
     $aksi = $_GET['con'];
-    if ($aksi == "checkout") {
-        $subtotal = $_POST['subtotal'];
-        $sql = mysqli_query($konek, "INSERT INTO order VALUES('$userid','Not Confirmed','$subtotal','')");
-        
-        $sql = mysqli_query($konek, "INSERT INTO order_detail VALUES('','$productid','$ukuran','$qty','$data_temp[harga]')");
-        $sql = mysqli_query($konek, "DELETE FROM cart_temp WHERE user_id='$userid'");
-        header('Location:shop.php?message=Thank You for Your Purchase');
-    } else if ($aksi == "remove") {
-        $sql = mysqli_query($konek, "DELETE FROM cart_temp WHERE product_id='$productid' AND user_id='$userid'");
-        header('Location:cart.php?message=Cart Updated!');
-    } else if ($aksi == "removeall") {
+    if ($aksi === 'hapus_semua') { //hapus semua isi cart
         $sql = mysqli_query($konek, "DELETE FROM cart_temp WHERE user_id='$userid'");
         header('Location:cart.php?message=Cart is now empty!');
-    } else { }
 
+    }
+    if ($aksi === 'remove') { //hapus produk terpilih
+        $sql = mysqli_query($konek, "DELETE FROM cart_temp WHERE product_id='$productid' AND user_id='$userid'");
+        header('Location:cart.php?message=Cart Updated!');
+
+    }
+    if ($aksi === 'checkout') { //checkout cart, kemudian dimasukkan ke order dan order_detail
+        $subtotal = $_POST['subtotal'];
+        $sql = mysqli_query($konek,"INSERT INTO order (user_id,status,total_harga,order_id) 
+        VALUES('$userid','Not Confirmed','$subtotal','')");
+        
+        $sql = mysqli_query($konek,"INSERT INTO order_detail (order_id,product_id,ukuran,jumlah,harga) 
+        SELECT o.order_id, ct.product_id, ct.ukuran, ct.jumlah, ct.harga FROM cart_temp ct, order o 
+        WHERE ct.user_id='$userid' AND o.user_id='$userid'");
+
+        $sql = mysqli_query($konek, "DELETE FROM cart_temp WHERE user_id='$userid'");
+        header('Location:shop.php?message=Thank You for Your Purchase');
+        
+    } if($aksi!=true) { 
+        header('Location:cart.php?message=Something Wrong!');
+    }
 } else {
     //chek apakah produk ada yang sama di cart atau belum, yg di chek user_id,product_id,size
-    if ($productid == $data_temp['product_id'] && $userid == $data_temp['user_id'] && $ukuran == $data_temp['size']) { //jika sudah ada barang, chek barang yang sama kemudian tambah jumlahnya
+    if ($productid === $data_temp['product_id'] && $userid === $data_temp['user_id'] && $ukuran === $data_temp['size']) { //jika sudah ada barang, chek barang yang sama kemudian tambah jumlahnya
         $qty = $qty + $data_temp['jumlah'];
         $sql = mysqli_query($konek, "UPDATE cart_temp SET jumlah='$qty' WHERE user_id='$userid' AND product_id='$productid' AND size='$ukuran'");
     } else { //jika blm ada, menambahkan barang
