@@ -1,15 +1,15 @@
 <?php
 include 'header.php';
-if(isset($_SESSION['uid'])){
-$userid = $_SESSION['uid'];
-$sql = mysqli_query($konek, "SELECT ct.size, ct.jumlah, p.* FROM cart_temp ct, product p WHERE ct.user_id='$userid' AND p.product_id=ct.product_id");
+if (isset($_SESSION['uid'])) {
+    $userid = $_SESSION['uid'];
+    $sql = mysqli_query($konek, "SELECT ct.size, ct.jumlah, p.* FROM cart_temp ct, product p WHERE ct.user_id='$userid' AND p.product_id=ct.product_id");
 }
 $subtotal = 0;
 ?>
 <div id="header" style="margin:70px 0 0 180px;">
     <div style="float:left;">Shopping Cart</div>
     <div style="display:inline-block;margin: 2px 0 0 20px;">
-    <!-- Mengosongkan cart -->
+        <!-- Mengosongkan cart -->
         <form action="cart-con.php?con=hapus_semua" method="POST">
             <input class="btn" style="width:100px;height:25px;padding:0;text-align:center;" type="submit" value="Empty Cart">
         </form>
@@ -27,7 +27,7 @@ $subtotal = 0;
         </tr>
         <?php
         while ($data = mysqli_fetch_array($sql)) {
-            $subtotal += $data['harga']*$data['jumlah'];
+            $subtotal += $data['harga'] * $data['jumlah'];
             ?>
             <tr>
                 <td>
@@ -40,7 +40,7 @@ $subtotal = 0;
                 <td style="padding-left:24px;text-align:center;"><?php echo $data['jumlah']; ?></td>
                 <td style="padding-left:24px;"><?php echo "Rp " . $data['harga']; ?></td>
                 <td style="padding-left:24px;text-align:center;">
-                <!-- remove 1 product button -->
+                    <!-- remove 1 product button -->
                     <form action="cart-con.php?con=remove" method="POST">
                         <input type="hidden" name="productid" value="<?= $data['product_id'] ?>">
                         <input class="btn" style="width:40px;" type="submit" value="x">
