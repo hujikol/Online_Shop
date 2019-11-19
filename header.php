@@ -5,9 +5,10 @@ if (isset($_GET['message'])) {
     $msg = $_GET['message'];
     echo "<script type='text/javascript'>alert('$msg');</script>";
 }
-if(isset($_SESSION['uid'])){
-$sql = mysqli_query($konek, "SELECT SUM(jumlah) as qty FROM cart_temp WHERE user_id='$_SESSION[uid]'");
-$data = mysqli_fetch_assoc($sql);}
+if (isset($_SESSION['uid'])) {
+    $sql = mysqli_query($konek, "SELECT SUM(jumlah) as qty FROM cart_temp WHERE user_id='$_SESSION[uid]'");
+    $data = mysqli_fetch_assoc($sql);
+}
 ?>
 
 <html>
@@ -28,10 +29,10 @@ $data = mysqli_fetch_assoc($sql);}
                 <li><a href="shop.php" title="Shop">Shop</a></li>
                 <li>
                     <a href="cart.php" title="Cart">Cart</a>
-                    <?php if($data['qty']>0){?>
-                    <p class="cart-nav" style="">
-                        <?php echo $data['qty'] ?>
-                    </p>
+                    <?php if ($data['qty'] > 0) { ?>
+                        <p class="cart-nav" style="">
+                            <?php echo $data['qty'] ?>
+                        </p>
                     <?php } ?>
                 </li>
                 <li><a href="profile.php" title="Account">Account</a></li>
