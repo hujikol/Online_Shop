@@ -3,7 +3,10 @@ include 'koneksi.php';
 
 $sql = mysqli_query($konek, 'SELECT * FROM product') or die(mysqli_error($konek));
 if (isset($_SESSION['login'])) {
-    $btn_command = 'cart-con.php?con=addtocart';
+    if (isset($_SESSION['level']) && $_SESSION['level'] === 'heroes')
+        $btn_command = 'cart-con.php?message=deleteproduct';
+    else
+        $btn_command = 'cart-con.php?con=addtocart';
 } else {
     $btn_command = 'login.php';
 }
@@ -27,8 +30,18 @@ while ($data = mysqli_fetch_array($sql)) { ?>
                             Rp <?php echo $data['harga'] ?>
                         </div>
                     </td>
+                    <?php if ($_SESSION['level'] === 'heroes') : ?> 
+                        <!-- jika admin maka hanya keluar tombol delete product -->
+
+                <tr><td><input type="hidden" name="id_produk" value="<?= $data['product_id'] ?>"></td></tr>
+
                     <td>
-                        <div style="text-align:center;">
+                        <input class="btn" style="width:140px;height:40px;" type="submit" value="Delete Product">
+                    </td>
+                </tr>
+            <?php else : ?>
+                <td>
+                    <div style="text-align:center;">
                         <form method="POST" action="<?= $btn_command ?>">
                             Size
                             <select name="size">
@@ -38,8 +51,8 @@ while ($data = mysqli_fetch_array($sql)) { ?>
                                 <option value="XL">XL</option>
                                 <option value="XXL">XXL</option>
                             </select>
-                        </div>
-                    </td>                   
+                    </div>
+                </td>
                 </tr>
                 <tr>
                     <td style="width:40px;">
@@ -48,16 +61,13 @@ while ($data = mysqli_fetch_array($sql)) { ?>
                         <input class="qty" type="number" name="quantity" placeholder="QTY" min="1" max="50">
                     </td>
                     <td>
-
                         <input class="btn" style="width:150px;" type="submit" value="Add to Cart">
                         </form>
                     </td>
                 </tr>
-                <!-- <tr>
-                    <td>
-                        <?php echo "Rp " . $data['harga'] . "<br>"; ?>
-                    </td>
-                </tr> -->
+            <?php
+                endif;
+                ?>
             </div>
         </table>
     </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 17 Nov 2019 pada 15.01
+-- Waktu pembuatan: 19 Nov 2019 pada 16.38
 -- Versi server: 10.4.6-MariaDB
 -- Versi PHP: 7.3.8
 
@@ -21,6 +21,27 @@ SET time_zone = "+00:00";
 --
 -- Database: `illegaldb`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `admin`
+--
+
+CREATE TABLE `admin` (
+  `admin_id` int(11) NOT NULL,
+  `username` varchar(20) NOT NULL,
+  `password` varchar(80) NOT NULL,
+  `nama` varchar(20) NOT NULL,
+  `title` varchar(7) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `admin`
+--
+
+INSERT INTO `admin` (`admin_id`, `username`, `password`, `nama`, `title`) VALUES
+(1, 'nicholas', '6b2244ecf5881e4aa6d4235d16be7b48', 'Nicholas Nanda S.', 'heroes');
 
 -- --------------------------------------------------------
 
@@ -153,6 +174,12 @@ INSERT INTO `user` (`email`, `password`, `firstname`, `lastname`, `alamat`, `kot
 --
 
 --
+-- Indeks untuk tabel `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`admin_id`);
+
+--
 -- Indeks untuk tabel `order_list`
 --
 ALTER TABLE `order_list`
@@ -173,6 +200,12 @@ ALTER TABLE `user`
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
+
+--
+-- AUTO_INCREMENT untuk tabel `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `order_list`

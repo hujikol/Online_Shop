@@ -64,4 +64,7 @@ switch ($aksi) {
             header('Location:shop.php?message=There is an error!');
         }
         break;
+
+    case 'deleteproduct':
+        $sql = mysqli_query($konek,"");
 }

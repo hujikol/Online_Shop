@@ -137,6 +137,10 @@ a{
     transition: background .3s;
 }
 
+label{
+    font-weight: 300;
+}
+
 .cart-preview{
     margin: 0 0 0 180px;
 }
