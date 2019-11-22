@@ -30,7 +30,7 @@ switch ($aksi) {
         $row = mysqli_fetch_assoc($data);
         if (mysqli_num_rows($data) >= 1) {
             $_SESSION['nama'] = $row['nama'];
-            $_SESSION['level'] = $row['title'];
+            $_SESSION['level'] = '$row['title']';
             $_SESSION['login'] = true;
             header('Location:shop.php');
         } else {

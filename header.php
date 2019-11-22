@@ -6,6 +6,7 @@ if (isset($_GET['message'])) {
     echo "<script type='text/javascript'>alert('$msg');</script>";
 }
 if (isset($_SESSION['uid'])) {
+    //menghitung banyaknya isi/qty cart
     $sql = mysqli_query($konek, "SELECT SUM(jumlah) as qty FROM cart_temp WHERE user_id='$_SESSION[uid]'");
     $data = mysqli_fetch_assoc($sql);
 }
@@ -44,7 +45,7 @@ else $level = '';
                         <li><a href="shop.php" title="Shop">Shop</a></li>
                         <li>
                             <a href="cart.php" title="Cart">Cart</a>
-                            <?php if ($data['qty'] > 0) { ?>
+                            <?php error_reporting(1); if ($data['qty'] > 0) { ?>
                                 <p class="cart-nav" style="">
                                     <?php echo $data['qty'] ?>
                                 </p>
