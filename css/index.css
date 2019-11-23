@@ -37,7 +37,8 @@ a{
 /* side nav pada profile blm bener */
 .side-nav{
     left: 0;
-    display: inline-block;
+    display: fixed;
+    float: left;
     margin: 100px 40px 20px 80px;
     color: black;
 }
