@@ -34,6 +34,20 @@ a{
     font-weight: 400;
 }
 
+/* side nav pada profile blm bener */
+.side-nav{
+    left: 0;
+    display: inline-block;
+    margin: 100px 40px 20px 80px;
+    color: black;
+}
+/* containernya juga belom bener */
+.container{
+    display: inline-block;
+    margin: 80px 0 20px 80px;
+    left: 160px;
+}
+
 .sub-header{
     font-size: 18px;
     font-weight: 300;
@@ -89,8 +103,13 @@ a{
 
 .product-container{
     float:left;
-    margin: 40px 0px 20px 40px;
+    margin: 0px 0px 20px 40px;
     letter-spacing: .5;
+}
+
+.profile-container{
+    display: inline-block;
+    margin: 100px 40px 40px 240px;
 }
 
 .cart-nav{
@@ -99,8 +118,6 @@ a{
     text-align: center;
     font-size: 18px;
     padding: 2px 6px 2px 6px;
-    width: 50px;
-    height: 50px;
 }
 
 .product-img{
