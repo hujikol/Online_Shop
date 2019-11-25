@@ -79,6 +79,5 @@ while ($data = mysqli_fetch_array($sql)) { ?>
     </div>
 <?php }
 
-//include 'footer.php'; 
 ?>
 </body>

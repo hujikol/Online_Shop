@@ -50,4 +50,3 @@
         </table>
     </form>
 </div>
-<?php include 'footer.php'; ?>
