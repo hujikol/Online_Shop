@@ -11,6 +11,12 @@ $userid = $_SESSION['uid'];
 $qty = $_POST['quantity'];
 $productid = $_POST['productid'];
 $ukuran = $_POST['size'];
+$nama_produk = $_POST['nama_produk'];
+$harga_produk = $_POST['harga_produk'];
+$foto = $_FILES['gambar'];
+	$namafile = md5(date('Y-m-d H:i:s'));
+	$namafile = $namafile . substr($foto['name'],strrpos($foto['name'], '.'));
+	move_uploaded_file($foto['tmp_name'], "images/$namafile");
 
 //mengecek apakah ada perintah pada link berupa con="..."
 if (isset($_GET['con'])) {
@@ -40,7 +46,8 @@ switch ($aksi) {
         $subtotal = $_POST['subtotal'];
         //memasukkan data ke order_list        
         $sql = mysqli_query($konek, "INSERT INTO order_list (user_id,status,total_harga) 
-        SELECT '$userid','Not Verified',SUM(cart_temp.harga*cart_temp.jumlah) FROM cart_temp WHERE cart_temp.user_id='$userid'");
+                SELECT user_id,'Not Verified',SUM(cart_temp.harga*cart_temp.jumlah) 
+                FROM cart_temp WHERE cart_temp.user_id='$userid'");
         //memasukan data ke order detail
         $sql = mysqli_query($konek, "INSERT INTO order_detail (order_id,product_id,ukuran,jumlah,harga) 
         SELECT order_list.order_id,cart_temp.product_id,cart_temp.size,cart_temp.jumlah,cart_temp.harga 
@@ -65,6 +72,30 @@ switch ($aksi) {
         }
         break;
 
+    case 'add_product':
+        //ambil data dari tabel produk
+        $sql = mysqli_query($konek,"SELECT * FROM product");
+        $data = mysqli_fetch_array($sql);
+        //chek apakah ada nama produk yang sama dari data base
+        if($nama_produk===$data['product_name']){
+            header('Location:addproduct.php?message=Product with that name already Exist!');
+        } else { //jika blm ada nama produk tsb, memasukan produk ke tabel product
+            $sql = mysqli_query($konek,"INSERT INTO product (product_name,harga,gambar) 
+            VALUES('$nama_produk',$harga_produk,'$namafile')");
+            if($sql){
+                header('Location:addproduct.php?message=Product Added!');
+            } else {
+                header('Location:addproduct.php?message=Error Adding Product!');
+            }
+        }
+        break;
+
     case 'deleteproduct':
-        $sql = mysqli_query($konek,"");
+        $sql = mysqli_query($konek, "DELETE FROM product WHERE product_id='$productid'");
+        if ($sql) {
+            header('Location:shop.php?message=Product Deleted!');
+        } else {
+            header('Location:shop.php?message=Error deleting!');
+        }
+        break;
 }

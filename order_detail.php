@@ -2,21 +2,14 @@
 
 if (isset($_GET['con'])) {
     $oid = $_GET['con'];
-    $sql = mysqli_query($konek, "SELECT o.product_id, o.ukuran, o.jumlah, o.harga, p.gambar, p.product_name FROM order_detail o LEFT JOIN product p ON o.product_id=p.product_id WHERE order_id='$oid'");
+    $sql = mysqli_query($konek, "SELECT o.product_id, o.ukuran, o.jumlah, o.harga, p.gambar, p.product_name 
+           FROM order_detail o LEFT JOIN product p ON o.product_id=p.product_id WHERE order_id='$oid'");
 }
 ?>
-
-<div class="side-nav">
-    <ul>
-        <li><a href="profile.php" title="Profile & Billing">Profile & Billing</li>
-        <li><a href="myorder.php" title="Orders">Orders</li>
-        <li><a href="logout.php" title="Logout">Logout</a></li>
-    </ul>
-</div>
 <div class="container">
-    <a class="btn" style="width:100px;" href="myorder.php">
+    <a class="btn" style="width:100px;" href="order_list.php">
         < Back</a> <br><br><br>
-            <div>Your Order Details</div><br>
+            <div>Order Details</div><br>
             <table>
                 <tr>
                     <td style="padding-left:24px;"></td>

@@ -57,7 +57,7 @@ $subtotal = 0;
             </div>
             <!-- Check out button -->
             <form action="cart-con.php?con=checkout" method="POST">
-                <input type="hidden" name="subtotal" value="<?= $subtotal ?>">
+                <input type="hidden" name="subtotal" value="<?php echo $subtotal; ?>">
                 <input class="btn" style="width:170px;height:50px;padding:0;text-align:center;margin:20px 0 0 327px" type="submit" value="CheckOut ->">
             </form>
 

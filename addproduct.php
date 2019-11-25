@@ -3,8 +3,8 @@ include 'header.php';
 
 
 ?>
-<section>
-    <form action="cart-con.php" method="POST" enctype="multipart/form-data">
+<section class="login-form">
+    <form action="cart-con.php?con=add_product" method="POST" enctype="multipart/form-data">
         <table>
             <tr>
                 <td>
@@ -15,12 +15,12 @@ include 'header.php';
             <tr>
                 <td>
                     <label for="harga">Harga Produk</label><br>
-                    <input class="input" type="text" name="nama_produk" placeholder="Rp">
+                    <input class="input" type="text" name="harga_produk" placeholder="Rp">
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="gambar">Upload Image</label>
+                    <label for="gambar">Upload Image</label><br>
                     <input class="input" style="padding:8px;" type="file" name="gambar" value="Upload Foto" accept="image/*"></<input>
                 </td>
             </tr>

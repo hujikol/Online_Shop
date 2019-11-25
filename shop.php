@@ -1,4 +1,5 @@
-<?php include 'header.php';
+<?php 
+include 'header.php';
 include 'koneksi.php';
 
 $sql = mysqli_query($konek, 'SELECT * FROM product') or die(mysqli_error($konek));
@@ -35,13 +36,15 @@ while ($data = mysqli_fetch_array($sql)) { ?>
                         <?php
                             if ($lvl === 'heroes') : ?>
                             <!-- jika admin maka hanya keluar tombol delete product -->
+                    </tr>
+                    <form method="POST" action="cart-con.php?con=deleteproduct">
                     <tr>
-                        <td><input type="hidden" name="id_produk" value="<?= $data['product_id'] ?>"></td>
+                        <td>
+                            <input type="submit" class="btn" style="width:140px;height:40px;" name="deleteproduct" value="Delete Product" />
+                        </td>
+                        <td><input type="hidden" name="productid" value="<?= $data['product_id'] ?>"></td>
                     </tr>
-                    <td>
-                        <input class="btn" style="width:140px;height:40px;" type="submit" value="Delete Product">
-                    </td>
-                    </tr>
+                    </form>
                 <?php else : ?>
                     <td>
                         <div style="text-align:center;">

@@ -39,8 +39,9 @@ a{
     left: 0;
     display: fixed;
     float: left;
-    margin: 100px 40px 20px 80px;
+    margin: 100px 40px 20px 40px;
     color: black;
+    text-decoration: none;
 }
 /* containernya juga belom bener */
 .container{
