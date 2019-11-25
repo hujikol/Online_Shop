@@ -35,12 +35,21 @@ if (isset($_GET['con'])) {
                         <td style="padding-left:24px;"><?php echo "Rp " . $data['harga']; ?></td>
                     </tr>
                 <?php }
+                $sql = mysqli_query($konek, "SELECT * FROM order_list WHERE order_id='$oid'");
+                $data = mysqli_fetch_array($sql);
                 ?>
             </table>
             <div>
                 -------------------------------------------------------------------------------------------
                 <div>
-                    Subtotal :  Rp <?php echo $subtotal; ?>
+                    Subtotal : Rp <?php echo $subtotal; ?>
                 </div>
+            </div>
+            <div class="create-holder">
+                <form action="cart-con.php?con=input-resi" method="POST">
+                    <input type="hidden" name="order_id" value="<?php echo $data['order_id']; ?>">
+                    Click confirm to send shipping code and confirm the order has been paid.<br>
+                    <input type="submit" name="confirm" value="Confirm" class="btn" style="width:120;">
+                </form>
             </div>
 </div>

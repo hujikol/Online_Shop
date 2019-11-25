@@ -7,8 +7,10 @@ include 'koneksi.php';
 // jika user sudah memutuskan untuk bayar/ chekout baru dimasukkan ke database tabel order dan yang di cart_temp dihapus
 error_reporting(1);
 //deklarasi variable
+$characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 $userid = $_SESSION['uid'];
 $qty = $_POST['quantity'];
+$orderid = $_POST['order_id'];
 $productid = $_POST['productid'];
 $ukuran = $_POST['size'];
 $nama_produk = $_POST['nama_produk'];
@@ -91,6 +93,7 @@ switch ($aksi) {
         break;
 
     case 'update-product':
+        //update nama dan harga produk berdasarkan product_id
         $sql = mysqli_query($konek, "UPDATE product SET product_name='$nama_produk', harga='$harga_produk' WHERE product_id='$productid'");
         if ($sql) {
             header('Location:shop.php?message=Product Updated!');
@@ -100,17 +103,35 @@ switch ($aksi) {
         break;
 
     case 'deleteproduct':
-        $sql = mysqli_query($konek,"SELECT gambar FROM product WHERE product_id='$productid'");
+        //ambil data gambar pada database dengan produk id sama
+        $sql = mysqli_query($konek, "SELECT gambar FROM product WHERE product_id='$productid'");
         $data = mysqli_fetch_array($sql);
-        $namafile = 'images/'.$data['gambar'];
-        if(file_exists($namafile)){
-            unlink($namafile);
+        //deklarasi namafile/gambar
+        $namafile = 'images/' . $data['gambar'];
+        if (file_exists($namafile)) {
+            unlink($namafile); //menghapus gambar pada folder "images/nama_file"
         }
+        //menghapus produk dari database dengan product id dari POST
         $sql = mysqli_query($konek, "DELETE FROM product WHERE product_id='$productid'");
         if ($sql) {
             header('Location:shop.php?message=Product Deleted!');
         } else {
             header('Location:shop.php?message=Error deleting!');
+        }
+        break;
+
+    case 'input-resi':
+        //generate 3 digit random character
+        $huruf = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 1, 3);
+        //generate 7 digit angka
+        $angka = random_int(0, 9999999);
+        //menggabungkan 3 Digit Character + 7 Digit Angka
+        $noresi = $huruf . $angka;
+        $sql = mysqli_query($konek, "UPDATE order_list SET no_resi='$noresi', status='Confirmed' WHERE order_id='$orderid'");
+        if ($sql) {
+            header('Location:order_list.php?message=Order Confirmed!');
+        } else {
+            header('Location:order_list.php?message=Error in Confirming Order!');
         }
         break;
 }
