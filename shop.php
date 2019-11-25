@@ -1,4 +1,4 @@
-<?php 
+<?php
 include 'header.php';
 include 'koneksi.php';
 
@@ -35,16 +35,15 @@ while ($data = mysqli_fetch_array($sql)) { ?>
                         </td>
                         <?php
                             if ($lvl === 'heroes') : ?>
-                            <!-- jika admin maka hanya keluar tombol delete product -->
+                            <!-- jika admin maka keluar tombol edit product -->
+                    
+                        <form action="edit_product.php" method="POST">
+                            <td width="50px">
+                                <input type="submit" class="btn" style="width:70px;height:40px;" name="editproduct" value="Edit" />
+                            </td>
+                            <td width="0px"><input type="hidden" name="productid" value="<?= $data['product_id'] ?>"></td>
+                        </form>
                     </tr>
-                    <form method="POST" action="cart-con.php?con=deleteproduct">
-                    <tr>
-                        <td>
-                            <input type="submit" class="btn" style="width:140px;height:40px;" name="deleteproduct" value="Delete Product" />
-                        </td>
-                        <td><input type="hidden" name="productid" value="<?= $data['product_id'] ?>"></td>
-                    </tr>
-                    </form>
                 <?php else : ?>
                     <td>
                         <div style="text-align:center;">

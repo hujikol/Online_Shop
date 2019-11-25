@@ -39,7 +39,7 @@ else $level = '';
                     <ul class="navbar">
                         <li><a href="shop.php" title="Shop">Shop</a></li>
                         <li><a href="order_list.php" title="Order List">Order List</a></li>
-                        <li><a href="addproduct.php" title="Add Product">Add Product</a></li>
+                        <li><a href="add_product.php" title="Add Product">Add Product</a></li>
                         <li><a href="logout.php" title="Logout">Logout</a></li>
                     </ul>
                 <?php

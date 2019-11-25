@@ -20,10 +20,8 @@ if (isset($_POST['key'])) {
         <h2 style="font-weight:350;">User Order List</h2>
         <div class="search">
             <!-- search bar untuk mencari data berdasarkan keyword -->
-            <form action="order_list.php" method="POST">
-                <input id="search" name="key" class="input" type="text" placeholder="Search Here...">
-                <input type="submit" class="btn" value="Search">
-            </form>
+            <input id="search" name="key" class="input" type="text" placeholder="Search Here...">
+
         </div>
         <div id="tampil">
             <table>

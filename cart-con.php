@@ -14,9 +14,9 @@ $ukuran = $_POST['size'];
 $nama_produk = $_POST['nama_produk'];
 $harga_produk = $_POST['harga_produk'];
 $foto = $_FILES['gambar'];
-	$namafile = md5(date('Y-m-d H:i:s'));
-	$namafile = $namafile . substr($foto['name'],strrpos($foto['name'], '.'));
-	move_uploaded_file($foto['tmp_name'], "images/$namafile");
+$namafile = md5(date('Y-m-d H:i:s'));
+$namafile = $namafile . substr($foto['name'], strrpos($foto['name'], '.'));
+move_uploaded_file($foto['tmp_name'], "images/$namafile");
 
 //mengecek apakah ada perintah pada link berupa con="..."
 if (isset($_GET['con'])) {
@@ -74,19 +74,28 @@ switch ($aksi) {
 
     case 'add_product':
         //ambil data dari tabel produk
-        $sql = mysqli_query($konek,"SELECT * FROM product");
+        $sql = mysqli_query($konek, "SELECT * FROM product");
         $data = mysqli_fetch_array($sql);
         //chek apakah ada nama produk yang sama dari data base
-        if($nama_produk===$data['product_name']){
-            header('Location:addproduct.php?message=Product with that name already Exist!');
+        if ($nama_produk === $data['product_name']) {
+            header('Location:add_product.php?message=Product with that name already Exist!');
         } else { //jika blm ada nama produk tsb, memasukan produk ke tabel product
-            $sql = mysqli_query($konek,"INSERT INTO product (product_name,harga,gambar) 
+            $sql = mysqli_query($konek, "INSERT INTO product (product_name,harga,gambar) 
             VALUES('$nama_produk',$harga_produk,'$namafile')");
-            if($sql){
-                header('Location:addproduct.php?message=Product Added!');
+            if ($sql) {
+                header('Location:add_product.php?message=Product Added!');
             } else {
-                header('Location:addproduct.php?message=Error Adding Product!');
+                header('Location:add_product.php?message=Error Adding Product!');
             }
+        }
+        break;
+
+    case 'update-product':
+        $sql = mysqli_query($konek, "UPDATE product SET product_name='$nama_produk', harga='$harga_produk' WHERE product_id='$productid'");
+        if ($sql) {
+            header('Location:shop.php?message=Product Updated!');
+        } else {
+            header('Location:shop.php?message=Error updating!');
         }
         break;
 
