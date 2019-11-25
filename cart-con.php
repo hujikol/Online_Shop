@@ -100,6 +100,12 @@ switch ($aksi) {
         break;
 
     case 'deleteproduct':
+        $sql = mysqli_query($konek,"SELECT gambar FROM product WHERE product_id='$productid'");
+        $data = mysqli_fetch_array($sql);
+        $namafile = 'images/'.$data['gambar'];
+        if(file_exists($namafile)){
+            unlink($namafile);
+        }
         $sql = mysqli_query($konek, "DELETE FROM product WHERE product_id='$productid'");
         if ($sql) {
             header('Location:shop.php?message=Product Deleted!');
