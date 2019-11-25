@@ -43,12 +43,16 @@ if (isset($_GET['con'])) {
                         <td style="padding-left:24px;"><?php echo "Rp " . $data['harga']; ?></td>
                     </tr>
                 <?php }
+                $sql = mysqli_query($konek, "SELECT * FROM order_list WHERE order_id='$oid'");
+                $data = mysqli_fetch_array($sql);
                 ?>
             </table>
             <div>
                 -------------------------------------------------------------------------------------------
                 <div>
-                    Subtotal :  Rp <?php echo $subtotal; ?>
+                    Subtotal :  Rp <?php echo $subtotal; ?> &emsp;&emsp;&emsp;&emsp; 
+                    <?php if(!empty($data['no_resi'])): ?>
+                    Shipping Code : <?php echo $data['no_resi']; endif;?>
                 </div>
             </div>
 </div>
