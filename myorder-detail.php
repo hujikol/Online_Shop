@@ -6,14 +6,6 @@ if (isset($_GET['con'])) {
     FROM order_detail o LEFT JOIN product p ON o.product_id=p.product_id WHERE order_id='$oid'");
 }
 ?>
-
-<div class="side-nav">
-    <ul>
-        <li><a href="profile.php" title="Profile & Billing">Profile & Billing</li>
-        <li><a href="myorder.php" title="Orders">Orders</li>
-        <li><a href="logout.php" title="Logout">Logout</a></li>
-    </ul>
-</div>
 <div class="container">
     <a class="btn" style="width:100px;" href="myorder.php">
         < Back</a> <br><br><br>

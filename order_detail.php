@@ -42,7 +42,9 @@ if (isset($_GET['con'])) {
             <div>
                 -------------------------------------------------------------------------------------------
                 <div>
-                    Subtotal : Rp <?php echo $subtotal; ?>
+                    Subtotal : Rp <?php echo $subtotal;
+                    if(!empty($data['no_resi'])): ?>&emsp;&emsp;&emsp;&emsp;
+                    Shipping Code : <?php echo $data['no_resi']; endif;?>
                 </div>
             </div>
             <div class="create-holder">

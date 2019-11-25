@@ -8,22 +8,30 @@ if (isset($_SESSION['uid'])) {
 ?>
 
 <div class="side-nav">
-    <ul>
-        <li><a href="profile.php" title="Profile & Billing">Profile & Billing</li>
-        <li><a href="myorder.php" title="Orders">Orders</li>
-        <li><a href="logout.php" title="Logout">Logout</a></li>
-    </ul>
+    <table style="border-right:2px solid black;padding:12px 28px 0 0;">
+        <tr>
+            <td>
+                <ul style="list-style-type:none">
+                    <li><a href="profile.php" title="Profile & Billing">Profile & Billing</li>
+                    <li>&nbsp;</li>
+                    <li><a href="myorder.php" title="Orders">Orders</li>
+                    <li>&nbsp;</li>
+                    <li><a href="logout.php" title="Logout">Logout</a></li>
+                </ul>
+            </td>
+        </tr>
+    </table>
 </div>
 
 <div class="container">
-    <div>Your Orders</div><br>
+    <h2>Your Orders</h2><br>
     <table>
         <tr>
-            <td style="padding-left:24px;">Order ID</td>
-            <td style="padding-left:24px;">Status</td>
-            <td style="padding-left:24px;">Item Count</td>
-            <td style="padding-left:24px;">Sub Total</td>
-            <td></td>
+            <th style="padding-left:24px;">Order ID</th>
+            <th style="padding-left:24px;">Status</th>
+            <th style="padding-left:24px;">Item Count</th>
+            <th style="padding-left:24px;">Sub Total</th>
+            <th></th>
         </tr>
         <?php
         while ($data = mysqli_fetch_array($sql)) {
