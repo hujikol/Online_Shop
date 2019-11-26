@@ -38,7 +38,7 @@ $subtotal = 0;
                 <td style="padding-left:24px;"><?php echo $data['product_name']; ?></td>
                 <td style="padding-left:24px;text-align:center;"><?php echo $data['size']; ?></td>
                 <td style="padding-left:24px;text-align:center;"><?php echo $data['jumlah']; ?></td>
-                <td style="padding-left:24px;"><?php echo "Rp " . $data['harga']; ?></td>
+                <td style="padding-left:24px;"><?php echo "Rp ".number_format($data['harga'], '0', ',', '.'); ?></td>
                 <td style="padding-left:24px;text-align:center;">
                     <!-- remove 1 product button -->
                     <form action="cart-con.php?con=remove" method="POST">
@@ -53,7 +53,7 @@ $subtotal = 0;
     <div style="float:left;padding:0px 10px 0 0;">
         -------------------------------------------------------------------------------------------
         <div style="margin:6px 0 6px 125px">
-            Subtotal <div style="margin:-18px 0 0px 280px"> Rp <?php echo $subtotal; ?>
+            Subtotal <div style="margin:-18px 0 0px 280px"> Rp <?php echo number_format($subtotal, '0', ',', '.'); ?>
             </div>
             <!-- Check out button -->
             <form action="cart-con.php?con=checkout" method="POST">

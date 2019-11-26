@@ -32,7 +32,7 @@ if (isset($_GET['con'])) {
                         <td style="padding-left:24px;"><?php echo $data['product_name']; ?></td>
                         <td style="padding-left:24px;text-align:center;"><?php echo $data['ukuran']; ?></td>
                         <td style="padding-left:24px;text-align:center;"><?php echo $data['jumlah']; ?></td>
-                        <td style="padding-left:24px;"><?php echo "Rp " . $data['harga']; ?></td>
+                        <td style="padding-left:24px;"><?php echo "Rp " . number_format($data['harga'], '0', ',', '.'); ?></td>
                     </tr>
                 <?php }
                 $sql = mysqli_query($konek, "SELECT * FROM order_list WHERE order_id='$oid'");
@@ -42,9 +42,30 @@ if (isset($_GET['con'])) {
             <div>
                 -------------------------------------------------------------------------------------------
                 <div>
-                    Subtotal :  Rp <?php echo $subtotal; ?> &emsp;&emsp;&emsp;&emsp; 
-                    <?php if(!empty($data['no_resi'])): ?>
-                    Shipping Code : <?php echo $data['no_resi']; endif;?>
+                    <b>Subtotal :</b> Rp
+                    <?php echo number_format($subtotal, '0', ',', '.'); ?>
+                    &emsp;&emsp;&emsp;&emsp;
+                    <?php if (!empty($data['no_resi'])) : ?>
+                        Shipping Code : <?php echo $data['no_resi'];
+                                        else : ?>
+                        <h2 style="border: 2px solid black;padding:6px">
+                            <b>You Should Pay : </b>Rp <?php echo number_format($data['harga_unik'], '0', ',', '.'); ?>
+                        </h2>
+                    <?php endif; ?>
                 </div>
             </div>
 </div>
+<!-- tombol upload bukti pembayaran akan keluar bila blm ada file yg diupload dan jika status ='Not Verified' -->
+<?php if (empty($data['bukti']) && $data['status'] === 'Not Verified') : ?>
+
+    <div style="float:right;padding:40px;margin:0 80px 0 0;">
+        <h3>Upload Your ATM Receipt Here</h3>
+        <p>Please note that you should transfer with the same nominal<br><i>(*including 3 digit unique number).</i></p>
+
+        <form action="cart-con.php?con=upload-resi" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="order_id" value="<?php echo $oid; ?>">
+            <input type="file" name="bukti" class="input" accept="image/*" value="Choose Image" style="padding:8px;"><br>
+            <input class="btn" type="submit" name="submit" value="Submit">
+        </form>
+    </div>
+<?php endif; ?>

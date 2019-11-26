@@ -30,7 +30,7 @@ while ($data = mysqli_fetch_array($sql)) { ?>
                         <td>
                             <div class="subcontent">
                                 <?php echo $data['product_name'] ?><br>
-                                Rp <?php echo $data['harga'] ?>
+                                Rp <?php echo number_format($data['harga'], '0', ',', '.'); ?>
                             </div>
                         </td>
                         <?php

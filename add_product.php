@@ -21,7 +21,7 @@ include 'header.php';
             <tr>
                 <td>
                     <label for="gambar">Upload Image</label><br>
-                    <input class="input" style="padding:8px;" type="file" name="gambar" value="Upload Foto" accept="image/*"></<input>
+                    <input class="input" style="padding:8px;" type="file" name="gambar" value="Upload Photo" accept="image/*"></<input>
                 </td>
             </tr>
             <tr><td><br></td></tr>

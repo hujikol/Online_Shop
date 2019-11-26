@@ -7,7 +7,6 @@ include 'koneksi.php';
 // jika user sudah memutuskan untuk bayar/ chekout baru dimasukkan ke database tabel order dan yang di cart_temp dihapus
 error_reporting(1);
 //deklarasi variable
-$characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 $userid = $_SESSION['uid'];
 $qty = $_POST['quantity'];
 $orderid = $_POST['order_id'];
@@ -46,9 +45,10 @@ switch ($aksi) {
 
     case 'checkout': //checkout cart, kemudian dimasukkan ke order dan order_detail
         $subtotal = $_POST['subtotal'];
+        $unique_num = $subtotal + random_int(100, 500); //generate 3 digit angka unik buat pembayaran
         //memasukkan data ke order_list        
-        $sql = mysqli_query($konek, "INSERT INTO order_list (user_id,status,total_harga) 
-                SELECT user_id,'Not Verified',SUM(cart_temp.harga*cart_temp.jumlah) 
+        $sql = mysqli_query($konek, "INSERT INTO order_list (user_id,status,total_harga,harga_unik) 
+                SELECT user_id,'Not Verified',SUM(cart_temp.harga*cart_temp.jumlah),'$unique_num' 
                 FROM cart_temp WHERE cart_temp.user_id='$userid'");
         //memasukan data ke order detail
         $sql = mysqli_query($konek, "INSERT INTO order_detail (order_id,product_id,ukuran,jumlah,harga) 
@@ -56,7 +56,7 @@ switch ($aksi) {
         FROM cart_temp,order_list WHERE cart_temp.user_id='$userid' AND order_list.user_id='$userid'");
         //menghapus data dari cart_temp
         $sql = mysqli_query($konek, "DELETE FROM cart_temp WHERE user_id='$userid'");
-        header('Location:shop.php?message=Thank You for Your Purchase');
+        header('Location:receipt.php');
         break;
 
     case 'addtocart': //chek apakah produk ada yang sama di cart atau belum, yg di chek user_id,product_id,size
@@ -119,6 +119,21 @@ switch ($aksi) {
             header('Location:shop.php?message=Error deleting!');
         }
         break;
+
+    case 'upload-resi':
+        $bukti = $_FILES['bukti'];
+        $namafile = md5(date('Y-m-d H:i:s'));
+        $namafile = $namafile . substr($bukti['name'], strrpos($bukti['name'], '.'));
+        //memasukkan file ke folder bukti
+        move_uploaded_file($bukti['tmp_name'], "bukti/$namafile");
+        //memasukkan nama file ke database tabel order_list
+        $sql = mysqli_query($konek, "UPDATE order_list SET bukti='$namafile' WHERE order_id='$orderid'");
+        if ($sql) {
+            header('Location:myorder-detail.php?message=Please Wait for Our Admin to Confirm!');
+        } else {
+            header('Location:myorder-detail.php?message=Error in Submitting Images!');
+        }
+    break;
 
     case 'input-resi':
         //generate 3 digit random character

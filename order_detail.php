@@ -32,7 +32,7 @@ if (isset($_GET['con'])) {
                         <td style="padding-left:24px;"><?php echo $data['product_name']; ?></td>
                         <td style="padding-left:24px;text-align:center;"><?php echo $data['ukuran']; ?></td>
                         <td style="padding-left:24px;text-align:center;"><?php echo $data['jumlah']; ?></td>
-                        <td style="padding-left:24px;"><?php echo "Rp " . $data['harga']; ?></td>
+                        <td style="padding-left:24px;"><?php echo "Rp " . number_format($data['harga'], '0', ',', '.'); ?></td>
                     </tr>
                 <?php }
                 $sql = mysqli_query($konek, "SELECT * FROM order_list WHERE order_id='$oid'");
@@ -42,16 +42,20 @@ if (isset($_GET['con'])) {
             <div>
                 -------------------------------------------------------------------------------------------
                 <div>
-                    Subtotal : Rp <?php echo $subtotal;
+                    Subtotal : Rp <?php echo number_format($subtotal, '0', ',', '.');
                     if(!empty($data['no_resi'])): ?>&emsp;&emsp;&emsp;&emsp;
                     Shipping Code : <?php echo $data['no_resi']; endif;?>
                 </div>
             </div>
-            <div class="create-holder">
+                   
+</div> 
+<?php if(empty($data['no_resi'])): ?>
+            <div style="float:right;padding:40px;margin:40px 80px 0 0;">
                 <form action="cart-con.php?con=input-resi" method="POST">
+                    <img src="bukti/<?= $data['bukti']?>" alt="ATM Receipt" style="border:1px solid black;padding 6px;width:500px;height:650px">
                     <input type="hidden" name="order_id" value="<?php echo $data['order_id']; ?>">
-                    Click confirm to send shipping code and confirm the order has been paid.<br>
+                    <p>Click confirm to send shipping code and confirm the order has been paid.</p>
                     <input type="submit" name="confirm" value="Confirm" class="btn" style="width:120;">
                 </form>
             </div>
-</div>
+                    <?php endif; ?>
