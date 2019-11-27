@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 25 Nov 2019 pada 18.53
+-- Waktu pembuatan: 27 Nov 2019 pada 09.26
 -- Versi server: 10.4.6-MariaDB
 -- Versi PHP: 7.3.8
 
@@ -62,7 +62,9 @@ CREATE TABLE `cart_temp` (
 --
 
 INSERT INTO `cart_temp` (`user_id`, `product_id`, `size`, `harga`, `jumlah`) VALUES
-(2, 6, 'L', 115000, 1);
+(2, 6, 'L', 115000, 1),
+(3, 2, 'S', 125000, 1),
+(3, 3, 'S', 100000, 2);
 
 -- --------------------------------------------------------
 
@@ -95,7 +97,25 @@ INSERT INTO `order_detail` (`order_id`, `product_id`, `ukuran`, `jumlah`, `harga
 (6, '7', 'L', 1, 115000),
 (4, '3', 'S', 2, 100000),
 (5, '3', 'S', 2, 100000),
-(7, '3', 'S', 2, 100000);
+(7, '3', 'S', 2, 100000),
+(4, '9', 'S', 1, 100000),
+(4, '15', 'S', 2, 130000),
+(5, '9', 'S', 1, 100000),
+(5, '15', 'S', 2, 130000),
+(7, '9', 'S', 1, 100000),
+(7, '15', 'S', 2, 130000),
+(8, '9', 'S', 1, 100000),
+(8, '15', 'S', 2, 130000),
+(4, '10', 'S', 2, 135000),
+(4, '11', 'S', 1, 125000),
+(5, '10', 'S', 2, 135000),
+(5, '11', 'S', 1, 125000),
+(7, '10', 'S', 2, 135000),
+(7, '11', 'S', 1, 125000),
+(8, '10', 'S', 2, 135000),
+(8, '11', 'S', 1, 125000),
+(9, '10', 'S', 2, 135000),
+(9, '11', 'S', 1, 125000);
 
 -- --------------------------------------------------------
 
@@ -108,18 +128,22 @@ CREATE TABLE `order_list` (
   `status` varchar(24) NOT NULL,
   `total_harga` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
-  `no_resi` varchar(16) NOT NULL
+  `no_resi` varchar(16) NOT NULL,
+  `harga_unik` int(11) NOT NULL,
+  `bukti` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `order_list`
 --
 
-INSERT INTO `order_list` (`user_id`, `status`, `total_harga`, `order_id`, `no_resi`) VALUES
-(3, 'Confirmed', 320000, 4, 'SLK1875252'),
-(3, 'Confirmed', 490000, 5, 'JNF6635796'),
-(2, 'Not Verified', 365000, 6, ''),
-(3, 'Not Verified', 200000, 7, '');
+INSERT INTO `order_list` (`user_id`, `status`, `total_harga`, `order_id`, `no_resi`, `harga_unik`, `bukti`) VALUES
+(3, 'Confirmed', 320000, 4, 'SLK1875252', 0, ''),
+(3, 'Confirmed', 490000, 5, 'JNF6635796', 0, ''),
+(2, 'Not Verified', 365000, 6, '', 0, ''),
+(3, 'Not Verified', 200000, 7, '', 0, ''),
+(3, 'Not Verified', 360000, 8, '', 360341, ''),
+(3, 'Confirmed', 395000, 9, 'CQX8615583', 395278, '04a339e4c22f533d841edd7c82deea08.PNG');
 
 -- --------------------------------------------------------
 
@@ -181,7 +205,7 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`email`, `password`, `firstname`, `lastname`, `alamat`, `kota`, `no_telp`, `kode_pos`, `tipe`, `user_id`) VALUES
 ('nikolasnanda@gmail.com', '202cb962ac59075b964b07152d234b70', 'nicholas', 'nanda', 'abcd', 'desc', 12049, 12345, 'user', 1),
 ('tet@gmail.com', '289dff07669d7a23de0ef88d2f7129e7', 'a', 'b', 'c', 'd', 8475, 12345, 'user', 2),
-('1', 'c4ca4238a0b923820dcc509a6f75849b', '1', '1', '1', '1', 1, 1, 'user', 3);
+('1', 'c4ca4238a0b923820dcc509a6f75849b', '1', '2', '3', '4', 6, 5, 'user', 3);
 
 --
 -- Indexes for dumped tables
@@ -225,7 +249,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT untuk tabel `order_list`
 --
 ALTER TABLE `order_list`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `product`
