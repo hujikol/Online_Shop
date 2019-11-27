@@ -10,7 +10,7 @@ $data = mysqli_fetch_array($sql);
             <div id="header">
                 Profile Detail
             </div>
-            <form method="POST" action="#">
+            <form method="POST" action="cart-con.php?con=edit-profile">
                 <table>
                     <tr>
                         <td>
@@ -27,32 +27,42 @@ $data = mysqli_fetch_array($sql);
                     <tr>
                         <td>
                             <div class="sub-header">Billing Information<br></div>
-                            <input class="input" style="width:150px;" type="text" name="firstname" value="<?= $data['firstname'] ?>">
-                            <input class="input" style="width:150px;" type="text" name="lastname" value="<?= $data['lastname'] ?>">
+                            <label for="firstname">First name</label><br>
+                            <input class="input" type="text" name="firstname" value="<?= $data['firstname'] ?>">
                         </td>
                     </tr>
                     <tr>
                         <td>
+                            <label for="lastname">Last name</label><br>
+                            <input class="input" type="text" name="lastname" value="<?= $data['lastname'] ?>">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="address">Address</label><br>
                             <input class="input" type="text" name="address" value="<?= $data['alamat'] ?>">
                         </td>
                     </tr>
                     <tr>
                         <td>
+                            <label for="city">City</label><br>
                             <input class="input" type="text" name="city" value="<?= $data['kota'] ?>">
                         </td>
                     </tr>
                     <tr>
                         <td>
+                            <label for="zip">Postal Code</label><br>
                             <input class="input" type="text" name="zip" value="<?= $data['kode_pos'] ?>">
                         </td>
                     </tr>
                     <tr>
                         <td>
+                            <label for="phone">Phone number</label><br>
                             <input class="input" type="text" name="phone" value="<?= $data['no_telp'] ?>">
                         </td>
                     </tr>
                     <tr>
-                        <td> <input class="btn" style="width:120px;" type="submit" name="update" value="Update"> </td>
+                        <td> <input class="btn" style="width:120px;" type="submit" name="submit" value="Update"> </td>
                     </tr>
                 </table>
             </form>

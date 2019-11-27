@@ -12,11 +12,14 @@ if (isset($_SESSION['login'])) {
     $btn_command = 'login.php';
 }
 error_reporting(1);
-if (isset($_SESSION['level'])) $lvl = $_SESSION['level'];
-while ($data = mysqli_fetch_array($sql)) { ?>
-    <div class="product-container">
-        <!-- <table style="border:1px solid black;float:left;border-radius:12px;"> -->
-        <div id="konten">
+if (isset($_SESSION['level'])) $lvl = $_SESSION['level']; ?>
+<div class="search" style="margin:6px 0 6px 80px;display:inline-block;">
+    <input id="keyword" name="key" class="input" type="text" placeholder="Search Here..." style="width:350px;">
+</div>
+<div id="konten">
+    <?php while ($data = mysqli_fetch_array($sql)) { ?>
+        <div class="product-container">
+            <!-- <table style="border:1px solid black;float:left;border-radius:12px;"> -->
             <table>
                 <tr>
                     <td colspan="2">
@@ -36,13 +39,13 @@ while ($data = mysqli_fetch_array($sql)) { ?>
                         <?php
                             if ($lvl === 'heroes') : ?>
                             <!-- jika admin maka keluar tombol edit product -->
-                    
-                        <form action="edit_product.php" method="POST">
-                            <td width="50px">
-                                <input type="submit" class="btn" style="width:70px;height:40px;" name="editproduct" value="Edit" />
-                            </td>
-                            <td width="0px"><input type="hidden" name="productid" value="<?= $data['product_id'] ?>"></td>
-                        </form>
+
+                            <form action="edit_product.php" method="POST">
+                                <td width="50px">
+                                    <input type="submit" class="btn" style="width:70px;height:40px;" name="editproduct" value="Edit" />
+                                </td>
+                                <td width="0px"><input type="hidden" name="productid" value="<?= $data['product_id'] ?>"></td>
+                            </form>
                     </tr>
                 <?php else : ?>
                     <td>
@@ -61,7 +64,6 @@ while ($data = mysqli_fetch_array($sql)) { ?>
                     </tr>
                     <tr>
                         <td style="width:40px;">
-                            <!-- <?php echo $data['product_name'] . "<br>"; ?> -->
                             <input type="hidden" name="productid" value="<?= $data['product_id'] ?>">
                             <input class="qty" type="number" name="quantity" placeholder="QTY" min="1" max="50">
                         </td>
@@ -76,8 +78,25 @@ while ($data = mysqli_fetch_array($sql)) { ?>
                 </div>
             </table>
         </div>
-    </div>
-<?php }
+    <?php } ?>
+</div>
+<script>
+console.log('js masuk gan!!!');
+var search = document.getElementById('keyword');
+var konten = document.getElementById('konten');
+search.addEventListener('keyup',function() {
 
-?>
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function(){
+        if( xhr.readyState == 4 && xhr.status == 200 ){
+            konten.innerHTML = xhr.responseText;
+        }
+    } 
+
+    xhr.open('GET', 'shop_search.php?keyword=' + keyword.value, true);
+    xhr.send();
+
+});
+</script>
 </body>

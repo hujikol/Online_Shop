@@ -91,6 +91,32 @@ switch ($aksi) {
             }
         }
         break;
+    
+    case 'edit-profile':
+        //deklarasi variable, ambil data dari form
+        $email = $_POST['email'];
+        $pass = md5($_POST['pass']);
+        $firstname = $_POST['firstname'];
+        $lastname = $_POST['lastname'];
+        $alamat = $_POST['address'];
+        $kota = $_POST['city'];
+        $kodepos = $_POST['zip'];
+        $telp = $_POST['phone'];
+        //periksa pada database apakah password user sama dengan yang ada di database
+        $sql = mysqli_query($konek,"SELECT * FROM user WHERE user_id='$userid'");
+        $data = mysqli_fetch_array($sql);
+        if($pass===$data['password']){
+        $sql = mysqli_query($konek,"UPDATE user SET firstname='$firstname', lastname='$lastname', alamat='$alamat', 
+        kota='$kota', no_telp='$telp', kode_pos='$kodepos' WHERE user_id='$userid'");
+            if($sql){
+                header('Location:profile.php?message=Data Updated!');
+            } else {
+                header('Location:profile.php?message=Error Updating Data!');
+            }
+        } else {
+            header('Location:edit-profile.php?message=Password is Wrong!');
+        }
+        break;
 
     case 'update-product':
         //update nama dan harga produk berdasarkan product_id

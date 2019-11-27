@@ -24,7 +24,7 @@ if (isset($_GET['keyword'])) {
             <td style="padding:20px;text-align:center;"><?= $data['user_id']; ?></td>
             <td style="padding:20px;text-align:center;"><?php echo $data['status']; ?></td>
             <td style="padding:20px;text-align:center;"><?php echo $data['qty']; ?></td>
-            <td style="padding:20px;text-align:center;"><?php echo "Rp " . $data['total_harga']; ?></td>
+            <td style="padding:20px;text-align:center;"><?php echo "Rp " . number_format($data['total_harga'], '0', ',', '.'); ?></td>
             <td style="padding:20px;text-align:center;">
                 <a class="btn" style="width:150px;" href="order_detail.php?con=<?= $data['order_id'] ?>">Order Detail</a>
             </td>
