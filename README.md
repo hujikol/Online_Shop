@@ -14,3 +14,4 @@ Feature :
 - Live search product by name or price.
 - Product CRUD.
 - Shop, order list pagination (On Proggress).
+- Auto remove order in 48 hours (On Proggress).
