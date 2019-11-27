@@ -1,19 +1,12 @@
 <?php
 include 'koneksi.php';
-
+session_start();
 if (isset($_GET['keyword'])) {
     $keyword = $_GET['keyword'];
     $sql = mysqli_query($konek, "SELECT * FROM product WHERE (product_name LIKE '%$keyword%') 
            OR (harga LIKE '%$keyword%') ");
 }
-if (isset($_SESSION['login'])) {
-    if (isset($_SESSION['level']) && $_SESSION['level'] === 'heroes')
-        $btn_command = 'cart-con.php?message=deleteproduct';
-    else
-        $btn_command = 'cart-con.php?con=addtocart';
-} else {
-    $btn_command = 'login.php';
-}
+
 error_reporting(1);
 if (isset($_SESSION['level'])) $lvl = $_SESSION['level'];
 while ($data = mysqli_fetch_array($sql)) { ?>
@@ -48,7 +41,7 @@ while ($data = mysqli_fetch_array($sql)) { ?>
             <?php else : ?>
                 <td>
                     <div style="text-align:center;">
-                        <form method="POST" action="<?= $btn_command ?>">
+                        <form method="POST" action="cart-con.php?con=addtocart">
                             Size
                             <select name="size">
                                 <option value="S">S</option>

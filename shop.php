@@ -4,18 +4,19 @@ include 'koneksi.php';
 
 $sql = mysqli_query($konek, 'SELECT * FROM product') or die(mysqli_error($konek));
 if (isset($_SESSION['login'])) {
-    if (isset($_SESSION['level']) && $_SESSION['level'] === 'heroes')
-        $btn_command = 'cart-con.php?message=deleteproduct';
-    else
-        $btn_command = 'cart-con.php?con=addtocart';
+    $btn_command = 'cart-con.php?con=addtocart';
 } else {
     $btn_command = 'login.php';
 }
 error_reporting(1);
-if (isset($_SESSION['level'])) $lvl = $_SESSION['level']; ?>
+if (isset($_SESSION['level'])) $lvl = $_SESSION['level']; 
+if(isset($_SESSION['login'])):
+?>
+<!-- search bar akan muncul bila sudah login -->
 <div class="search" style="margin:6px 0 6px 80px;display:inline-block;">
     <input id="keyword" name="key" class="input" type="text" placeholder="Search Here..." style="width:350px;">
 </div>
+<?php endif; ?>
 <div id="konten">
     <?php while ($data = mysqli_fetch_array($sql)) { ?>
         <div class="product-container">
@@ -81,22 +82,22 @@ if (isset($_SESSION['level'])) $lvl = $_SESSION['level']; ?>
     <?php } ?>
 </div>
 <script>
-console.log('js masuk gan!!!');
-var search = document.getElementById('keyword');
-var konten = document.getElementById('konten');
-search.addEventListener('keyup',function() {
+    console.log('js masuk gan!!!');
+    var search = document.getElementById('keyword');
+    var konten = document.getElementById('konten');
+    search.addEventListener('keyup', function() {
 
-    var xhr = new XMLHttpRequest();
+        var xhr = new XMLHttpRequest();
 
-    xhr.onreadystatechange = function(){
-        if( xhr.readyState == 4 && xhr.status == 200 ){
-            konten.innerHTML = xhr.responseText;
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                konten.innerHTML = xhr.responseText;
+            }
         }
-    } 
 
-    xhr.open('GET', 'shop_search.php?keyword=' + keyword.value, true);
-    xhr.send();
+        xhr.open('GET', 'shop_search.php?keyword=' + keyword.value, true);
+        xhr.send();
 
-});
+    });
 </script>
 </body>
