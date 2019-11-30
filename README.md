@@ -10,8 +10,9 @@ Feature :
 - Auto generate 3 Digit char + 7 Digit Number for Shipping code.
 - Unique Payment Subtotal + 3 Digit Unique number.
 - Confirm orders by Admin.
-- Live search orders by order id, user id, and order status.
-- Live search product by name or price.
+- Live search orders by order id, user id, or order status.
+- Conventional search product by name or price.
 - Product CRUD.
 - Shop, order list pagination (On Proggress).
 - Auto remove order in 48 hours (On Proggress).
+- Shipping code Tracking (On Proggress).
