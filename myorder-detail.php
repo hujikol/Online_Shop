@@ -62,7 +62,7 @@ if (isset($_GET['con'])) {
         <h3>Upload Your ATM Receipt Here</h3>
         <p>Please note that you should transfer with the same nominal<br><i>(*including 3 digit unique number).</i></p>
 
-        <form action="cart-con.php?con=upload-resi" method="POST" enctype="multipart/form-data">
+        <form action="cart-con.php?con=upload-bukti" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="order_id" value="<?php echo $oid; ?>">
             <input type="file" name="bukti" class="input" accept="image/*" value="Choose Image" style="padding:8px;"><br>
             <input class="btn" type="submit" name="submit" value="Submit">

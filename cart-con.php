@@ -146,7 +146,7 @@ switch ($aksi) {
         }
         break;
 
-    case 'upload-resi':
+    case 'upload-bukti':
         $bukti = $_FILES['bukti'];
         $namafile = md5(date('Y-m-d H:i:s'));
         $namafile = $namafile . substr($bukti['name'], strrpos($bukti['name'], '.'));
@@ -155,9 +155,9 @@ switch ($aksi) {
         //memasukkan nama file ke database tabel order_list
         $sql = mysqli_query($konek, "UPDATE order_list SET bukti='$namafile' WHERE order_id='$orderid'");
         if ($sql) {
-            header('Location:myorder-detail.php?message=Please Wait for Our Admin to Confirm!');
+            header('Location:myorder.php?message=Please Wait for Our Admin to Confirm!');
         } else {
-            header('Location:myorder-detail.php?message=Error in Submitting Images!');
+            header('Location:myorder.php?message=Error in Submitting Images!');
         }
     break;
 
