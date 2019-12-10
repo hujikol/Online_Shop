@@ -1,4 +1,4 @@
-# Project_Online_Shop
+# Online Shop
 Tugas Akhir Praktikum Pemrograman Web
 
 Feature :
